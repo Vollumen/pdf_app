@@ -6,6 +6,7 @@ from fpdf import FPDF
 import pandas as pd
 
 pdf = FPDF(orientation='P', unit='mm', format='A4')
+pdf.set_auto_page_break(auto=False, margin=0) # In order to make subtext work
 
 df = pd.read_csv('topics.csv')
 
@@ -16,8 +17,20 @@ for index, row in df.iterrows():
     pdf.cell(w=0, h=24, txt=row['Topic'], align='L', ln=1, border=0)
     pdf.line(10, 28, 200, 28) # x1, y1, x2, y2)
 
+    # Set the footer
+    pdf.ln(250) # Add 278 breaklines on each page - to the btm of page.
+    pdf.set_font('Times', style='I', size=8)
+    pdf.set_text_color(180, 180, 180)
+    pdf.cell(w=0, h=10, txt=row['Topic'], align='R', ln=1, border =0)
+    
+    
     for i in range(row['Pages'] -1):
         pdf.add_page()
+        # Set the footer
+        pdf.ln(273) # Add 278 breaklines on each page - to the btm of page.
+        pdf.set_font('Times', style='I', size=8)
+        pdf.set_text_color(180, 180, 180)
+        pdf.cell(w=0, h=10, txt=row['Topic'], align='R', ln=1, border =0)
 
 
 pdf.output('output.pdf')
