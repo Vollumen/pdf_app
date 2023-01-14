@@ -1,4 +1,6 @@
 # Create pdf file with headings and pages form csv
+# Iterate over ranges
+# Create a nested for loop
 
 from fpdf import FPDF
 import pandas as pd
